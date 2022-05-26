@@ -72,12 +72,13 @@ public class ReservationTicket {
         if (reservationTickets.size() == 0) {
             System.out.println("Sorry no Record Yet!");
         } else {
-            System.out.format("%s%20s %15s %15s %15s %15s %15s","Name", "Origin", "Destination", "Distance", "Status", "Fare Rate", "Date\n");
-            System.out.println("----------------------------------------------------------------------------------------");
+            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
+            System.out.printf("|%-20s|%-15s|%-15s|%-10s|%-10s|%-10s|\n","Name", "Origin", "Destination", "Distance", "Status", "Fare Rate");
+            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
             for (ReservationTicket t : reservationTickets) {
-                System.out.format("%s%20s %15s %15s %15s %15f %15td-%tm-%tY\n" , t.nameOfPassenger ,t.origin , t.destination, t.distance , t.status , t.fareRate , t.date, t.date,t.date);
+                System.out.printf("|%-20s|%-15s|%-15s|%-10s|%-10s|%-10.2f|\n" , t.nameOfPassenger , t.origin , t.destination, t.distance, t.status, t.fareRate);
             }
-            System.out.println("\n\n--------------------------------------------------------------------------------------\n\n");
+            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
         }
     }
 
