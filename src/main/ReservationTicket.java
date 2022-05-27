@@ -2,27 +2,30 @@ package main;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Formatter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ReservationTicket {
-    private String nameOfPassenger;
-    private String origin;
-    private String destination;
+    private  int id =1;
+    private final String nameOfPassenger;
+    private final String status;
+    private final String origin;
+    private final String destination;
+    private final int  numOfSeats;
     private double fareRate;
-    private LocalDate date;
-    private String inputDate;
-    private String status;
+    private final String date;
     private double distance;
 
-    ReservationTicket(String nameOfPassenger, String origin, String destination, LocalDate date, String status, double fareRate, double distance) {
+    /** UI*/
+    ReservationTicket(int id, String nameOfPassenger, String origin, String destination, int numOfSeats, String date, String status, double fareRate, double distance) {
+        this.id = id;
         this.nameOfPassenger = nameOfPassenger;
+        this.status = status;
         this.origin = origin;
         this.destination = destination;
+        this.numOfSeats = numOfSeats;
         this.date = date;
-        this.status = status;
         this.fareRate = fareRate;
         this.distance = distance;
     }
@@ -30,7 +33,9 @@ public class ReservationTicket {
     private static List<ReservationTicket> reservationTickets = new LinkedList<>();
     Scanner scan = new Scanner(System.in);
 
+    /**Get data from user input */
     ReservationTicket() {
+        final LocalDate localDate;
         System.out.println("Name: ");
         nameOfPassenger = scan.nextLine();
         System.out.println("Status: ");
@@ -39,46 +44,63 @@ public class ReservationTicket {
         origin = scan.next();
         System.out.println("Destination: ");
         destination = scan.next();
+        System.out.println("Number of Seats: ");
+        numOfSeats = scan.nextInt();
         System.out.println("Data: dd-mm-yy");
-        inputDate = scan.next();
+        String inputDate = scan.next();
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        date = LocalDate.parse(inputDate, formatDate);
+        localDate = LocalDate.parse(inputDate, formatDate);
+        date = localDate.toString();
+        setId();
         setDistance();
-        setFareRate();
-        reservationTickets.add(new ReservationTicket(nameOfPassenger, origin, destination, date, status, fareRate, distance));
+
     }
 
-     void setDistance() {
-        destination.toLowerCase();
-        origin.toLowerCase();
+    /** The setter or our id  */
+    void setId() {
+        for (ReservationTicket t : reservationTickets) {
+            if (this.id == t.id) {
+                this.id++;
+            }
+        }
+    }
+
+    /** Setter of our distance */
+    void setDistance() {
         if (destination.equals("samboan") && origin.equals("csbt")||origin.equals("samboan") && destination.equals("csbt")){
         distance = 148.6;
+        setFareRate(350);
+        } else if (destination.equals("carcar") && origin.equals("csbt")||origin.equals("carcar") && destination.equals("csbt")){
+            distance = 37;
+            setFareRate(70);
         }
     }
 
-     void setFareRate() {
-        status.toLowerCase();
+    /** Setter of our Fare rate*/
+    void setFareRate(double fareRate) {
+        final int  discount = (350 / 10) * 2;
         if (status.equals("regular")){
-         fareRate = 350;
+         this.fareRate = fareRate * numOfSeats;
         } else if (status.equals("pwd") || status.equals("student") || status.equals("senior citizen")) {
-            fareRate = 350 - ((350 / 10) * 2) ;
-
+            this.fareRate = (fareRate * numOfSeats ) - discount;
         }
     }
 
-
+    /** Display all  tickets*/
     public static void displayReservationTickets() {
-        Formatter fmt = new Formatter();
         if (reservationTickets.size() == 0) {
             System.out.println("Sorry no Record Yet!");
         } else {
-            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
-            System.out.printf("|%-20s|%-15s|%-15s|%-10s|%-10s|%-10s|\n","Name", "Origin", "Destination", "Distance", "Status", "Fare Rate");
-            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
+            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------","---------------"
+                    ,"---------------","----------","----------","-------------","----------" );
+            System.out.format("|%-5s|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10s|\n","Id","Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
+            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----","--------------------","---------------","---------------",
+                    "----------","----------","-------------","----------" );
             for (ReservationTicket t : reservationTickets) {
-                System.out.printf("|%-20s|%-15s|%-15s|%-10s|%-10s|%-10.2f|\n" , t.nameOfPassenger , t.origin , t.destination, t.distance, t.status, t.fareRate);
+                System.out.format("|%-5d|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10.2f|\n" ,t.id, t.nameOfPassenger , t.origin , t.destination, t.distance, t.status, t.date, t.fareRate);
             }
-            System.out.printf("+%-20s+%-15s+%-15s+%-10s+%-10s+%-10s+\n", "--------------------","---------------","---------------","----------","----------","----------" );
+            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n","-----", "--------------------","---------------","---------------","----------",
+                    "----------","-------------" ,"----------");
         }
     }
 
