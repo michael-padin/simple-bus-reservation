@@ -104,5 +104,9 @@ public class ReservationTicket {
         }
     }
 
+    public static  void  searchTicket (){
+
+    }
+
 
 }

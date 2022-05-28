@@ -18,9 +18,11 @@ public class Main {
             }else if (choice == 2) {
                 System.out.println("update");
             }else if (choice == 3) {
+                ReservationTicket.searchTicket();
                 System.out.println("Search");
             }else if (choice == 4) {
-                ReservationTicket.displayReservationTickets();
+                Bus bus = new Bus();
+                ReservationTicket.displayReservationTickets(Bus);
             } else {
                 running = false;
             }
