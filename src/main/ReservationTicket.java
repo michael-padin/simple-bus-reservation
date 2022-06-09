@@ -2,23 +2,25 @@ package main;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class ReservationTicket {
+    int busNo;
     private  int id =1;
     private final String nameOfPassenger;
     private final String status;
     private final String origin;
     private final String destination;
-    private final int  numOfSeats;
+    private int  numOfSeats;
     private double fareRate;
     private final String date;
     private double distance;
 
     /** UI*/
-    ReservationTicket(int id, String nameOfPassenger, String origin, String destination, int numOfSeats, String date, String status, double fareRate, double distance) {
+    ReservationTicket(int id, String nameOfPassenger, String origin, String destination, String date, int numOfSeats, String status, double fareRate, double distance) {
         this.id = id;
         this.nameOfPassenger = nameOfPassenger;
         this.status = status;
@@ -36,6 +38,9 @@ public class ReservationTicket {
     /**Get data from user input */
     ReservationTicket() {
         final LocalDate localDate;
+        System.out.println("Enter bus Number: ");
+        busNo = scan.nextInt();
+        setNumOfSeats();
         System.out.println("Name: ");
         nameOfPassenger = scan.nextLine();
         System.out.println("Status: ");
@@ -44,8 +49,6 @@ public class ReservationTicket {
         origin = scan.next();
         System.out.println("Destination: ");
         destination = scan.next();
-        System.out.println("Number of Seats: ");
-        numOfSeats = scan.nextInt();
         System.out.println("Data: dd-mm-yy");
         String inputDate = scan.next();
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
@@ -55,6 +58,41 @@ public class ReservationTicket {
         setDistance();
 
     }
+    public void setNumOfSeats() {
+        ArrayList<Bus> bus = new Bus().getBus();
+        for (int i = 0; i < 3; i++){
+
+            if (i == 1){
+                System.out.println("Enter Seat");
+            for( Bus b : bus) {
+                if (b.getBusNo() == this.busNo){
+                    if (b.getCapacity().contains(this.numOfSeats)){
+                        System.out.println(b.capacity);
+                    };
+                }
+            }
+            }
+        }
+
+
+
+        }
+       /* for (int i = 0; i < 3; i++){
+            if (i == 1){
+                for (Bus b : bus){
+                System.out.println("Enter seat number: ");
+                b.capacity
+                    System.out.println(b);
+                    numOfSeats = scan.nextInt();
+
+                }
+            }
+        }
+*/
+
+//        this.numOfSeats = numOfSeats;
+//    }
+
 
     /** The setter or our id  */
     void setId() {
@@ -88,6 +126,7 @@ public class ReservationTicket {
 
     /** Display all  tickets*/
     public static void displayReservationTickets() {
+
         if (reservationTickets.size() == 0) {
             System.out.println("Sorry no Record Yet!");
         } else {

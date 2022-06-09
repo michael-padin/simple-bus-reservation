@@ -2,7 +2,6 @@ package main;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
 public class Main {
     public static void main(String[] args) {
 
@@ -22,7 +21,7 @@ public class Main {
                 System.out.println("Search");
             }else if (choice == 4) {
                 Bus bus = new Bus();
-                ReservationTicket.displayReservationTickets(Bus);
+                ReservationTicket.displayReservationTickets();
             } else {
                 running = false;
             }
