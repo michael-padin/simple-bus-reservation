@@ -1,16 +1,13 @@
 package main;
-
 import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
 
 public class Bus{
-     int busNo;
-     String busName;
-     String destination;
-     String origin;
-     final ArrayList<Integer> capacity = new ArrayList<>();
-     final ArrayList<Bus> bus = new ArrayList<>();
+     private int busNo;
+     private String busName;
+     private String destination;
+     private String origin;
+     private final ArrayList<Integer> capacity = new ArrayList<>();
+     private final ArrayList<Bus> bus = new ArrayList<>();
 
   public Bus(int busNo, String busName, String origin, String destination, int capacity) {
         this.busNo = busNo;

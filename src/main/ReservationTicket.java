@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class ReservationTicket {
-    int busNo;
+    private int busNo;
     private  int id =1;
     private final String nameOfPassenger;
     private final String status;
@@ -19,7 +19,7 @@ public class ReservationTicket {
     private final String date;
     private double distance;
 
-    /** UI*/
+    /** Constructor of our ticket*/
     ReservationTicket(int id, String nameOfPassenger, String origin, String destination, String date, int numOfSeats, String status, double fareRate, double distance) {
         this.id = id;
         this.nameOfPassenger = nameOfPassenger;
@@ -32,6 +32,7 @@ public class ReservationTicket {
         this.distance = distance;
     }
 
+    /** Store our object in ArrayList so that we can access it in future fetching*/
     private static List<ReservationTicket> reservationTickets = new LinkedList<>();
     Scanner scan = new Scanner(System.in);
 
@@ -49,49 +50,34 @@ public class ReservationTicket {
         origin = scan.next();
         System.out.println("Destination: ");
         destination = scan.next();
-        System.out.println("Data: dd-mm-yy");
+        System.out.println("Date: dd-mm-yyyy");
         String inputDate = scan.next();
         DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
         localDate = LocalDate.parse(inputDate, formatDate);
         date = localDate.toString();
-        setId();
-        setDistance();
-
+        reservationTickets.add(new ReservationTicket(id, nameOfPassenger, origin, destination, date, numOfSeats, status, fareRate, distance));
     }
+
+    /** check if seat number is occupied*/
     public void setNumOfSeats() {
         ArrayList<Bus> bus = new Bus().getBus();
-        for (int i = 0; i < 3; i++){
+        for (int i = 0; i < 3; i++) {
 
-            if (i == 1){
+            if (i == 1) {
                 System.out.println("Enter Seat");
-            for( Bus b : bus) {
-                if (b.getBusNo() == this.busNo){
-                    if (b.getCapacity().contains(this.numOfSeats)){
-                        System.out.println(b.capacity);
-                    };
-                }
-            }
-            }
-        }
-
-
-
-        }
-       /* for (int i = 0; i < 3; i++){
-            if (i == 1){
-                for (Bus b : bus){
-                System.out.println("Enter seat number: ");
-                b.capacity
-                    System.out.println(b);
-                    numOfSeats = scan.nextInt();
-
+                numOfSeats = scan.nextInt();
+                scan.nextLine();
+                for (Bus b : bus) {
+                    if (b.getBusNo() == this.busNo) {
+                        if (b.getCapacity().contains(this.numOfSeats)) {
+                            System.out.println(b.getCapacity());
+                        }
+                        ;
+                    }
                 }
             }
         }
-*/
-
-//        this.numOfSeats = numOfSeats;
-//    }
+    }
 
 
     /** The setter or our id  */
@@ -103,20 +89,10 @@ public class ReservationTicket {
         }
     }
 
-    /** Setter of our distance */
-    void setDistance() {
-        if (destination.equals("samboan") && origin.equals("csbt")||origin.equals("samboan") && destination.equals("csbt")){
-        distance = 148.6;
-        setFareRate(350);
-        } else if (destination.equals("carcar") && origin.equals("csbt")||origin.equals("carcar") && destination.equals("csbt")){
-            distance = 37;
-            setFareRate(70);
-        }
-    }
 
     /** Setter of our Fare rate*/
     void setFareRate(double fareRate) {
-        final int  discount = (350 / 10) * 2;
+        final double  discount = (fareRate / 10) * 2;
         if (status.equals("regular")){
          this.fareRate = fareRate * numOfSeats;
         } else if (status.equals("pwd") || status.equals("student") || status.equals("senior citizen")) {
