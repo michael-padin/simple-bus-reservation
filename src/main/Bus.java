@@ -1,56 +1,45 @@
 package main;
+
 import java.util.ArrayList;
 
-public class Bus{
-     private int busNo;
-     private String busName;
-     private String destination;
-     private String origin;
-     private final ArrayList<Integer> capacity = new ArrayList<>();
-     private final ArrayList<Bus> bus = new ArrayList<>();
+public class Bus {
+    private int busNo;
+    private String busName;
+    private String destination;
+    private String origin;
+    private ArrayList<Integer> capacity = new ArrayList<>();
 
-  public Bus(int busNo, String busName, String origin, String destination, int capacity) {
+    public Bus(int busNo, String busName, String origin, String destination, ArrayList<Integer> capacity) {
         this.busNo = busNo;
         this.busName = busName;
         this.origin = origin;
         this.destination = destination;
-        for (int i = 1; i <= capacity; i++) {
-            this.capacity.add(i);
-        }
+        this.capacity = capacity;
     }
 
-    public ArrayList<Bus> getBus() {
-        return bus;
+    Bus() {
+    }
+
+
+    public void displayBus(ArrayList<Bus> buses) {
+
+        System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
+        System.out.format("|%-10s|%-20s|%-15s|%-15s|%-10s|\n", "Bus No.", "Bus Name", "Origin", "Destination", "Capacity");
+        System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
+        for (Bus bus : buses) {
+            System.out.format("|%-10d|%-20s|%-15s|%-15s|%-10d|\n", bus.busNo, bus.busName, bus.origin, bus.destination, bus.capacity.size());
+        }
+        System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
+
     }
 
     public int getBusNo() {
         return busNo;
     }
 
-    public String getBusName() {
-        return busName;
-    }
-
-    public String getDestination() {
-        return destination;
-    }
-
-    public String getOrigin() {
-        return origin;
-    }
-
     public ArrayList<Integer> getCapacity() {
         return capacity;
     }
-
-    public Bus(){
-        bus.add(new Bus(101,    "ceres1", "csbt", "samboan",38));
-        bus.add(new Bus(102, "ceres2", "csbt", "oslob",38));
-        bus.add(new Bus(103, "ceres3", "csbt", "alcoy",38));
-        bus.add(new Bus(104, "ceres4", "csbt", "argao",38));
-        bus.add(new Bus(104, "ceres4", "csbt", "carcar", 38));
-    }
-
 
 
 }
