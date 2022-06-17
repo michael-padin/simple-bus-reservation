@@ -1,5 +1,3 @@
-package main;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -28,7 +26,7 @@ public class Main {
             if (choice == 1) {
 
                 /** display our bus info*/
-                  new Bus().displayBus(buses);
+                new Bus().displayBus(buses);
 
                 /** add ticket */
                 ticket.addTicket(buses);
