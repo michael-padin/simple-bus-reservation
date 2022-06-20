@@ -1,5 +1,3 @@
-package main;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -98,7 +96,7 @@ public class ReservationTicket {
                              * */
                             i--;
                         }
-                    break;
+                        break;
                     }
                 }
             }
