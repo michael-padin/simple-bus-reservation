@@ -7,6 +7,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ReservationTicket {
+
     /**
      * Store our object in ArrayList so that we can access it in future fetching
      */
@@ -67,6 +68,7 @@ public class ReservationTicket {
                 }
             }
             if (i == 2) {
+
                 /** Input seat number*/
                 System.out.println("Enter Seat");
                 numOfSeats = scan.nextInt();
@@ -77,6 +79,7 @@ public class ReservationTicket {
 
                     /** Check if inputted bus number is available in buses*/
                     if (b.getBusNo() == this.busNo) {
+
                         /** if bus seat number is equal to the inputted seat number then remove
                          *  the element in our arraylist seat number
                          * */
@@ -101,6 +104,7 @@ public class ReservationTicket {
             }
 
             if (i == 4) {
+
                 /** Input name of passenger*/
                 System.out.println("Name: ");
                 nameOfPassenger = scan.nextLine();
@@ -109,9 +113,16 @@ public class ReservationTicket {
                 System.out.println("Status: ");
                 status = scan.next();
 
+                /** convert to lower case so that if the user will input some capital letters
+                 * it will be converted to lower case and with that, we can check easily for our conditional
+                 * statements.
+                 * */
+                status.toLowerCase();
+
                 /** Set date*/
                 System.out.println("Date: dd-mm-yyyy");
                 String inputDate = scan.next();
+
                 DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 localDate = LocalDate.parse(inputDate, formatDate);
                 date = localDate.toString();
@@ -125,6 +136,8 @@ public class ReservationTicket {
 
                 /** call our setFareRate method to update our fare Rate */
                 setFareRate();
+
+                /** Create our object and add it in our array list so that we can access it in future*/
                 reservationTickets.add(new ReservationTicket(id, busNo, nameOfPassenger, origin, destination, date, numOfSeats, status, fareRate, distance));
                 break;
 
