@@ -9,8 +9,15 @@ public class ReservationTicket {
     /**
      * Store our object in ArrayList so that we can access it in future fetching
      */
+
     private static final ArrayList<ReservationTicket> reservationTickets = new ArrayList<>();
+
+
     Scanner scan = new Scanner(System.in);
+
+    /**
+     * attributes of our className
+     */
     private int busNo;
     private int id = 1;
     private String nameOfPassenger;
@@ -51,7 +58,7 @@ public class ReservationTicket {
         LocalDate localDate;
         setId();
 
-        for (int i = 0; i < i+ 1; i++) {
+        for (int i = 0; i < i + 1; i++) {
             if (i == 0) {
                 System.out.println("Enter bus Number: ");
                 busNo = scan.nextInt();
