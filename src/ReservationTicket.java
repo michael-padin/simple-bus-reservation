@@ -60,7 +60,7 @@ public class ReservationTicket {
 
         for (int i = 0; i < i + 1; i++) {
             if (i == 0) {
-                System.out.println("Enter bus Number: ");
+                System.out.print("Enter bus Number: ");
                 busNo = scan.nextInt();
                 for (Bus bus : buses) {
                     if (bus.getBusNo() == busNo) {
@@ -75,7 +75,7 @@ public class ReservationTicket {
             if (i == 2) {
 
                 /** Input seat number*/
-                System.out.println("Enter Seat");
+                System.out.print("Enter Seat: ");
                 numOfSeats = scan.nextInt();
                 scan.nextLine();
 
@@ -111,11 +111,11 @@ public class ReservationTicket {
             if (i == 4) {
 
                 /** Input name of passenger*/
-                System.out.println("Name: ");
+                System.out.print("Name: ");
                 nameOfPassenger = scan.nextLine();
 
                 /** Input status of passenger*/
-                System.out.println("Status: ");
+                System.out.print("Status: ");
                 status = scan.next();
 
                 /** convert to lower case so that if the user will input some capital letters
@@ -125,18 +125,18 @@ public class ReservationTicket {
                 status.toLowerCase();
 
                 /** Set date*/
-                System.out.println("Date: dd-mm-yyyy");
+                System.out.print("Date: dd-mm-yyyy: ");
                 String inputDate = scan.next();
 
                 DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
                 localDate = LocalDate.parse(inputDate, formatDate);
                 date = localDate.toString();
 
-                System.out.println("Origin: ");
+                System.out.print("Origin: ");
                 origin = scan.next();
-                System.out.println("Destination: ");
+                System.out.print("Destination: ");
                 destination = scan.next();
-                System.out.println("Distance from Origin to Destination: ");
+                System.out.print("Distance from Origin to Destination: ");
                 distance = scan.nextDouble();
 
                 /** call our setFareRate method to update our fare Rate */
@@ -178,19 +178,19 @@ public class ReservationTicket {
         double minimumDistance = 5;
 
         /** If passenger is  regular */
-        if (status.equals("regular")) {
+        if (this.status.equals("regular")) {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForReg;
             } else {
-                this.fareRate = ((distance - minimumDistance) * succeedingKilometerForReg) + minimumFareRateForReg;
+                this.fareRate = ((this.distance - minimumDistance) * succeedingKilometerForReg) + minimumFareRateForReg;
             }
 
             /** If passenger is not regular */
-        } else if (status.equals("pwd") || status.equals("student") || status.equals("senior citizen")) {
+        } else if (this.status.equals("pwd") || this.status.equals("student") || this.status.equals("senior citizen")) {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForNotReg;
             } else {
-                this.fareRate = ((distance - minimumDistance) * succeedingKilometerForNotReg) + minimumFareRateForNotReg;
+                this.fareRate = ((this.distance - minimumDistance) * succeedingKilometerForNotReg) + minimumFareRateForNotReg;
             }
         }
     }
@@ -280,6 +280,8 @@ public class ReservationTicket {
         if (reservationTickets.size() == 0) {
             System.out.println("Sorry no Record Yet!");
         } else {
+
+//            the "-" symbol will align String to left
             System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");
             System.out.format("|%-5s|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10s|\n", "Id", "Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
             System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");

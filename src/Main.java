@@ -12,6 +12,8 @@ public class Main {
         ArrayList<Bus> buses = new ArrayList<>();
         ArrayList<Integer> capacity = new ArrayList<>();
 
+
+
         /** add bus capacity */
         for (int i = 1; i <= 2; i++) {
             capacity.add(i);
