@@ -23,7 +23,8 @@ public class Main {
 
         while (running) {
             ReservationTicket ticket = new ReservationTicket();
-            System.out.println("[1]Add \t\t\t\t[2]Update \t\t[3]Search\n[4]Display all \t\t[5]exit");
+            System.out.println("\n\n[1]Add \t\t\t\t[2]Update \t\t[3]Search\n[4]Display all \t\t[5]exit\n\n");
+            System.out.print("Choice: ");
             choice = scan.nextInt();
             if (choice == 1) {
 

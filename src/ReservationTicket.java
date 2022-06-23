@@ -144,6 +144,7 @@ public class ReservationTicket {
 
                 /** Create our object and add it in our array list so that we can access it in future*/
                 reservationTickets.add(new ReservationTicket(id, busNo, nameOfPassenger, origin, destination, date, numOfSeats, status, fareRate, distance));
+                System.out.println("\n\nTicket added...");
                 break;
 
             }
@@ -204,12 +205,12 @@ public class ReservationTicket {
         for (int i = 0; i < i + 1; i++) {
 
             if (i == 1) {
-                System.out.println("Your current id: ");
+                System.out.print("Your current id: ");
                 int passengerId = scan.nextInt();
                 scan.nextLine();
-                System.out.println("Your current name: ");
+                System.out.print("Your current name: ");
                 String passengerName = scan.nextLine();
-                System.out.println("Bus No. : ");
+                System.out.print("Bus Number: ");
                 int passengerBusNo = scan.nextInt();
                 scan.nextLine();
                 /** Check if there is tickets added in our arraylist */
@@ -225,6 +226,7 @@ public class ReservationTicket {
                             System.out.println("Status: " + reserves.status);
                             System.out.println("Origin: " + reserves.origin);
                             System.out.println("Destination: " + reserves.destination);
+                            System.out.println("Distance: " + reserves.distance);
                             System.out.println("Date : " + reserves.date);
                             System.out.println("Fare rate: " + reserves.fareRate + " \n");
                             i += 2;
@@ -255,7 +257,7 @@ public class ReservationTicket {
 
         for (ReservationTicket reserves : reservationTickets) {
 
-            System.out.println("Enter your new Name: ");
+            System.out.print("Enter your new Name: ");
             String passengerNameToReplace = scan.nextLine();
 
             /** update passenger name*/
@@ -266,7 +268,7 @@ public class ReservationTicket {
             System.out.println("Status: " + reserves.status);
             System.out.println("Origin: " + reserves.origin);
             System.out.println("Destination: " + reserves.destination);
-            System.out.println("Date : " + reserves.date);
+            System.out.println("Date: " + reserves.date);
             System.out.println("Fare rate: " + reserves.fareRate + " \n");
         }
     }
@@ -278,7 +280,7 @@ public class ReservationTicket {
     public void displayReservationTickets() {
 
         if (reservationTickets.size() == 0) {
-            System.out.println("Sorry no Record Yet!");
+            System.out.println("Sorry no Record Yet!\n");
         } else {
 
 //            the "-" symbol will align String to left
