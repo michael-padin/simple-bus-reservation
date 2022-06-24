@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class Bus {
     private int busNo;
@@ -19,7 +20,7 @@ public class Bus {
     }
 
 
-    public void displayBus(ArrayList<Bus> buses) {
+    public void displayBus(LinkedList<Bus> buses) {
 
         System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
         System.out.format("|%-10s|%-20s|%-15s|%-15s|%-10s|\n", "Bus No.", "Bus Name", "Origin", "Destination", "Capacity");
