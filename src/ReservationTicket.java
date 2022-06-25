@@ -1,18 +1,16 @@
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Objects;
 import java.util.Scanner;
 
 public class ReservationTicket {
 
     /**
-     * Store our object in ArrayList so that we can access it in future fetching
+     * Store our object in ArrayList so that we can
+     * access it later
      */
-
     private static final ArrayList<ReservationTicket> reservationTickets = new ArrayList<>();
-
 
     Scanner scan = new Scanner(System.in);
 
@@ -49,14 +47,16 @@ public class ReservationTicket {
 
 
     ReservationTicket() {
+
     }
 
     /**
      * Get data from user input
      * ADD TICKET
      */
-    public void addTicket(LinkedList<Bus> buses) {
+    public void addTicket(ArrayList<Bus> buses) {
         LocalDate localDate;
+
         setId();
 
         for (int i = 0; i < 7; i++) {
@@ -66,15 +66,17 @@ public class ReservationTicket {
                 this.busNo = scan.nextInt();
 
                 for (Bus bus : buses) {
+                    /** if ang gi input sa user is equals sa bus number then proceed*/
                     if (this.busNo == bus.getBusNo()) {
                         System.out.println("\nAvailable seats: " + bus.getCapacity().toString());
                         i = 2;
+
                     } else {
                         i--;
                     }
 
                     if (bus.getCapacity().size() == 0) {
-                        System.out.println("Bus is full! try other bus or try again next life");
+                        System.out.println("Bus is full! try other bus or try again next time");
                         i = 7;
                     }
                 }
@@ -99,9 +101,7 @@ public class ReservationTicket {
                             /** the remove() predefined method is to remove the specific element in
                              *  our arraylist.
                              * */
-                            System.out.println(b.getCapacity() );
                             b.getCapacity().remove((Integer) this.numOfSeats);
-                            System.out.println(b.getCapacity());
                             i += 2;
                         } else {
                             System.out.println("Seat is occupied, try another one");
@@ -135,21 +135,19 @@ public class ReservationTicket {
                 System.out.print("Date: dd-mm-yyyy: ");
                 String inputDate = scan.next();
 
-                try {
-                    DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-                    localDate = LocalDate.parse(inputDate, formatDate);
-                    date = localDate.toString();
-                } catch (Exception e) {
-                    System.out.println("Invalid date ");
-                }
+                /** format date using date formatter*/
+                DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+                localDate = LocalDate.parse(inputDate, formatDate);
+                this.date = localDate.toString();
 
 
                 System.out.print("Origin: ");
-                origin = scan.next();
+                this.origin = scan.next();
                 System.out.print("Destination: ");
-                destination = scan.next();
+                this.destination = scan.next();
                 System.out.print("Distance from Origin to Destination: ");
-                distance = scan.nextDouble();
+                this.distance = scan.nextDouble();
 
                 /** call our setFareRate method to update our fare Rate */
                 setFareRate();
@@ -173,7 +171,10 @@ public class ReservationTicket {
      * The setter or our id
      */
     void setId() {
+
         for (ReservationTicket t : reservationTickets) {
+            /** ticket added; id  = 1 */
+            System.out.println(t);
             if (this.id == t.id) {
                 this.id++;
             }
@@ -225,7 +226,8 @@ public class ReservationTicket {
                 System.out.print("Bus Number: ");
                 int passengerBusNo = scan.nextInt();
                 scan.nextLine();
-                /** Check if there is tickets added in our arraylist */
+
+                /** Check the size/length of our arraylist reservationTickets*/
                 if (reservationTickets.size() != 0) {
 
                     /** Loop our reservationTicket so that we get access to its elements*/
@@ -294,7 +296,7 @@ public class ReservationTicket {
             System.out.println("\n\nSorry no Record Yet!\n");
         } else {
 
-//            the "-" symbol will align String to left
+//            the "-" symbol means align String to left
             System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");
             System.out.format("|%-5s|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10s|\n", "Id", "Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
             System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");

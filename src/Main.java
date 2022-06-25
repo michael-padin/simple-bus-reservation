@@ -1,29 +1,33 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
         int choice = 0;
-        boolean running = true;
         Scanner scan = new Scanner(System.in);
 
-        /** store our Object in arraylist */
-        LinkedList<Bus> buses = new LinkedList<>();
-        ArrayList<Integer> capacity = new ArrayList<>();
-        ArrayList<Integer> capacity2 = new ArrayList<>();
+        /** bus arraylist */
+        ArrayList<Bus> buses = new ArrayList<>();
+
+        /** capacity of each bus */
+        ArrayList<Integer> capacity = new ArrayList<>(); // 1..38
+        ArrayList<Integer> capacity2 = new ArrayList<>(); // 1..38
 
 
         /** add bus capacity */
-        for (int i = 1; i <= 38; i++) {
+        for (int i = 1; i <= 2; i++) {
             capacity.add(i);
             capacity2.add(i);
         }
 
-        /** add our object bus to our array list */
+        /**
+         * @csbt = cebu south bus terminal
+         * create our object "Bus" and then add it our arraylist
+         */
         buses.add(new Bus(101, "Ceres01", "csbt", "samboan", capacity));
         buses.add(new Bus(102, "Ceres02", "csbt", "barili", capacity2));
+
 
         for (int i = 0; i < 5; i++) {
 
@@ -45,27 +49,30 @@ public class Main {
 
                 /** add ticket */
                 ticket.addTicket(buses);
+                i--;
             } else if (choice == 2) {
 
                 /** update ticket */
                 ticket.updateTicket();
+                i--;
             } else if (choice == 3) {
 
                 /** search ticket*/
                 ticket.searchTicket();
+                i--;
             } else if (choice == 4) {
 
                 /** display all tickets*/
                 ticket.displayReservationTickets();
+                i--;
             } else if (choice == 5) {
 
                 /** exit */
                 i = 5;
             } else {
                 System.out.println("Enter valid number!!");
-                i--;
+                i = -1;
             }
-            i--;
         }
     }
 }
