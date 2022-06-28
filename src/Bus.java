@@ -20,26 +20,26 @@ public class Bus {
 
     public void displayBus(ArrayList<Bus> buses) {
 
-        System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
-        System.out.format("|%-10s|%-20s|%-15s|%-15s|%-10s|\n", "Bus No.", "Bus Name", "Origin", "Destination", "Capacity");
+        System.out.format("\n+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
+        System.out.format("| %-9s| %-19s| %-14s| %-14s| %-9s|\n", "Bus No.", "Bus Name", "Origin", "Destination", "Capacity");
         System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
 
         for (Bus bus : buses) {
-            System.out.format("|%-10d|%-20s|%-15s|%-15s|%-10d|\n", bus.busNo, bus.busName, bus.origin, bus.destination, bus.capacity.size());
+            System.out.format("| %-9d| %-19s| %-14s| %-14s| %-9d|\n", bus.busNo, bus.busName, bus.origin, bus.destination, bus.capacity.size());
         }
         System.out.format("+%-10s+%-20s+%-15s+%-15s+%-10s+\n", "----------", "--------------------", "---------------", "---------------", "----------");
 
     }
 
+    /* Getter of our bus number */
     public int getBusNo() {
         return busNo;
     }
 
+    /* Getter of our bus capacity */
     public ArrayList<Integer> getCapacity() {
         return capacity;
     }
-
-
 }
 
 
