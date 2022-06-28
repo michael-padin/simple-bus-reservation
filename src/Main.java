@@ -14,7 +14,6 @@ public class Main {
         ArrayList<Integer> capacity = new ArrayList<>(); // 1..38
         ArrayList<Integer> capacity2 = new ArrayList<>(); // 1..38
 
-
         /** add bus capacity */
         for (int i = 1; i <= 2; i++) {
             capacity.add(i);
@@ -52,13 +51,12 @@ public class Main {
                 i--;
             } else if (choice == 2) {
 
-                /** update ticket */
-                ticket.updateTicket();
-                i--;
-            } else if (choice == 3) {
-
                 /** search ticket*/
                 ticket.searchTicket();
+                i--;
+            } else if (choice == 3) {
+                /** update ticket */
+                ticket.updateTicket();
                 i--;
             } else if (choice == 4) {
 

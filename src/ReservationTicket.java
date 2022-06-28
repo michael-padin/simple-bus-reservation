@@ -45,9 +45,7 @@ public class ReservationTicket {
     }
 
 
-    ReservationTicket() {
-
-    }
+    ReservationTicket() {}
 
     /**
      * Get data from user input
@@ -110,7 +108,6 @@ public class ReservationTicket {
                              * */
                             i--;
                         }
-                        break;
                     }
                 }
             }
@@ -181,18 +178,18 @@ public class ReservationTicket {
      * Set fare rate base on inputted distance
      */
     public void setFareRate() {
-        final double succeedingKilometerForNotReg = 1.45;
-        final double succeedingKilometerForReg = 1.85;
+        double minimumDistance = 5;
+        final double succeedingPerKilometerForNotReg = 1.48;
+        final double succeedingPerKilometerForReg = 1.85;
         final double minimumFareRateForReg = 11;
         final double minimumFareRateForNotReg = 8.75;
-        double minimumDistance = 5;
 
         /** If passenger is  regular */
         if (this.status.equals("regular")) {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForReg;
-            } else {
-                this.fareRate = ((this.distance - minimumDistance) * succeedingKilometerForReg) + minimumFareRateForReg;
+            } else {                //20               // 5                 // 1.85
+                this.fareRate = ((this.distance - minimumDistance) * succeedingPerKilometerForReg) + minimumFareRateForReg;
             }
 
             /** If passenger is not regular */
@@ -200,7 +197,7 @@ public class ReservationTicket {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForNotReg;
             } else {
-                this.fareRate = ((this.distance - minimumDistance) * succeedingKilometerForNotReg) + minimumFareRateForNotReg;
+                this.fareRate = ((this.distance - minimumDistance) * succeedingPerKilometerForNotReg) + minimumFareRateForNotReg;
             }
         }
     }
@@ -243,9 +240,6 @@ public class ReservationTicket {
      */
     public void searchTicket() {
 
-        for (int i = 0; i < i + 1; i++) {
-
-            if (i == 1) {
                 System.out.print("Your current id: ");
                 id = scan.nextInt();
                 scan.nextLine();
@@ -282,8 +276,6 @@ public class ReservationTicket {
                 if (isError) {
                     System.out.println("Can't find ticket! try again...\n");
                 }
-            }
-        }
     }
 
     /**
