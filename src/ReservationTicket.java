@@ -20,13 +20,21 @@ public class ReservationTicket {
     private int seatNo;
     private double fareRate;
     private double distance;
+<<<<<<< HEAD
     private String nameOfPassenger; // sample
+=======
+    private String nameOfPassenger;
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     private String status;
     private String origin;
     private String destination;
     private String date;
 
+<<<<<<< HEAD
     /* Constructor of our ticket object*/
+=======
+    /* Constructor of our ticket*/
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     ReservationTicket(int id, int busNo, String nameOfPassenger, String origin, String destination, String date, int seatNo, String status, double fareRate, double distance) {
         this.id = id;
         this.busNo = busNo;
@@ -44,11 +52,21 @@ public class ReservationTicket {
     ReservationTicket() {
     }
 
+<<<<<<< HEAD
+=======
+    ReservationTicket() {
+    }
+
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     /* get data from user input using our addTicket() method*/
     public void addTicket(ArrayList<Bus> buses) {
         LocalDate localDate;
 
+<<<<<<< HEAD
         /* we call our setId() method to Generate an id for our user */
+=======
+        /* call our setId() method to Generate an id for our user */
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
         setId();
 
         for (int i = 0; i < 7; i++) {
@@ -72,7 +90,10 @@ public class ReservationTicket {
                         i--;
                     }
                 }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
                 if (isError) {
                     System.out.println("Bus is full! try other bus or try again next time");
                     isError = false;
@@ -86,10 +107,17 @@ public class ReservationTicket {
                 seatNo = scan.nextInt();
                 scan.nextLine();
 
+<<<<<<< HEAD
                 /* we Loop our bus arraylist to get the specific element / object */
                 for (Bus b : buses) {
 
                     /* Check if inputted bus number kung mo match sa among in buse object */
+=======
+                /* Loop our bus arraylist to get the elements of bus capacity*/
+                for (Bus b : buses) {
+
+                    /* Check if inputted bus number is available in buses*/
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
                     if (b.getBusNo() == this.busNo) {
 
                         /* if bus seat number is equal to the inputted seat number we then remove
@@ -106,7 +134,11 @@ public class ReservationTicket {
                             System.out.println("Seat is occupied, try another one");
 
                             /* decrement our i if the inputted seat number is not available in our arraylist
+<<<<<<< HEAD
                              *  so that it will go back to ask again a seat number.
+=======
+                             *  so that it will go back to ask a seat number.
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
                              * */
                             i--;
                         }
@@ -155,7 +187,11 @@ public class ReservationTicket {
         }
     }
 
+<<<<<<< HEAD
     /* Setter of our passenger name*/   //michael
+=======
+    /* Setter of our passenger name*/
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     public void setNameOfPassenger(String nameOfPassenger) {
         // sample                   //michael
         this.nameOfPassenger = nameOfPassenger;
@@ -240,7 +276,11 @@ public class ReservationTicket {
 
                     /** update passenger name using our setter method which is setNameOfPassenger() */
                     ticket.setNameOfPassenger(passengerNameToReplace);
+<<<<<<< HEAD
                     nameOfPassenger = passengerNameToReplace;
+=======
+                    this.nameOfPassenger = passengerNameToReplace;
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
 
                     /* Set our global variable ticket to "ticket updated" since we're updating a ticket*/
                     message = "TICKET UPDATED!";
@@ -255,13 +295,21 @@ public class ReservationTicket {
     }
 
 
+<<<<<<< HEAD
     /* display ticket */
+=======
+    /* display single ticket */
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     public void displaySingleTicket() {
 
         /* Loop our reservationTicket so that we get access to its elements*/
         for (ReservationTicket ticket : reservationTickets) {
 
+<<<<<<< HEAD
             /* check to see if the user's information matches the inserted item in our arraylist.t*/
+=======
+            /* if inputted information of the user is match to the added object in our arraylist*/
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
             if (id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
                 System.out.println("\n\t" + message + "\n");
                 System.out.println("Id: " + ticket.id);
@@ -282,13 +330,20 @@ public class ReservationTicket {
         }
     }
 
+<<<<<<< HEAD
     /* Display tickets*/
+=======
+    /* Display all  tickets*/
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
     public void displayReservationTickets() {
         if (reservationTickets.size() == 0) {
             System.out.println("\n\nSorry no Record Yet!\n");
         } else {
 //            the "-" symbol means align String to left
+<<<<<<< HEAD
 //            number[s] or "5s" means numbers of space nga ih occupy
+=======
+>>>>>>> 4a0a7b1a35a5d818436f98f37eb2c59e213906dc
             System.out.format("+%-5s+%-9s+%-9s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-11s+\n", "-----", "---------","---------", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "-----------");
             System.out.format("| %-4s| %-8s| %-8s| %-19s| %-14s| %-14s| %-9s| %-9s| %-12s| %-10s|\n", "Id", "Bus No", "Seat No", "Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
             System.out.format("+%-5s+%-9s+%-9s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-11s+\n", "-----", "---------","---------", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "-----------");
