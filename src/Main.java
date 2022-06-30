@@ -3,73 +3,71 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-
-        int choice = 0;
         Scanner scan = new Scanner(System.in);
 
-        /** bus arraylist */
+        int choice = 0;
+
+        /* bus arraylist */
         ArrayList<Bus> buses = new ArrayList<>();
 
-        /** capacity of each bus */
+        /* capacity of each bus */
         ArrayList<Integer> capacity = new ArrayList<>(); // 1..38
         ArrayList<Integer> capacity2 = new ArrayList<>(); // 1..38
+        ArrayList<Integer> capacity3 = new ArrayList<>(); // 1..38
 
-        /** add bus capacity */
-        for (int i = 1; i <= 2; i++) {
+        /* add the numbers as elements of our bus capacity arrayList */
+        for (int i = 1; i <= 38; i++) {
             capacity.add(i);
             capacity2.add(i);
+            capacity3.add(i);
         }
 
-        /**
+        /*
          * @csbt = cebu south bus terminal
          * create our object "Bus" and then add it our arraylist
          */
         buses.add(new Bus(101, "Ceres01", "csbt", "samboan", capacity));
         buses.add(new Bus(102, "Ceres02", "csbt", "barili", capacity2));
+        buses.add(new Bus(103, "Ceres03", "csbt", "naga", capacity3));
 
+        /* instantiate our reservation tickets  so that we can access the methods of the class.*/
+        ReservationTicket ticket = new ReservationTicket();
 
-        for (int i = 0; i < 5; i++) {
+        while (true) {
+//            display choices
+            System.out.println("\n\n\t\t\t  BUS RESERVATION SYSTEM\n");
+            System.out.println("[1]Add \t\t\t\t[2]Search \t\t[3]Update\n[4]Display all \t\t[5]exit\n\n");
 
-            /** instantiate our reservation tickets  so that we can access the methods there.*/
-            ReservationTicket ticket = new ReservationTicket();
-
-            System.out.println("\n\n[1]Add \t\t\t\t[2]Update \t\t[3]Search\n[4]Display all \t\t[5]exit\n\n");
-
-            /** Enter choice for specific actions */
-            if (i == 0) {
-                System.out.print("Choice: ");
-                choice = scan.nextInt();
-            }
+            /* Enter choice for specific actions */
+            System.out.print("Choice: ");
+            choice = scan.nextInt();
 
             if (choice == 1) {
-
-                /** display our bus info*/
+                /* display our bus info*/
                 new Bus().displayBus(buses);
 
-                /** add ticket */
+                /* add ticket */
                 ticket.addTicket(buses);
-                i--;
+
             } else if (choice == 2) {
 
-                /** search ticket*/
+                /* search ticket*/
                 ticket.searchTicket();
-                i--;
+
             } else if (choice == 3) {
-                /** update ticket */
+                /* update ticket */
                 ticket.updateTicket();
-                i--;
+
             } else if (choice == 4) {
-
-                /** display all tickets*/
+                /* display all tickets*/
                 ticket.displayReservationTickets();
-                i--;
-            } else if (choice == 5) {
 
-                /** exit */
-                i = 5;
+            } else if (choice == 5) {
+                /* exit */
+                break;
+
             } else {
                 System.out.println("Enter valid number!!");
-                i = -1;
             }
         }
     }

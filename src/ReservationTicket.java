@@ -5,55 +5,50 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class ReservationTicket {
-    /**
+    private static final ArrayList<ReservationTicket> reservationTickets = new ArrayList<>();
+    private static boolean isError;
+    private static String message;
+    /*
      * Store our object in ArrayList so that we can
      * access it later
      */
-    private static final ArrayList<ReservationTicket> reservationTickets = new ArrayList<>();
-    static boolean isError;
     Scanner scan = new Scanner(System.in);
 
-    /**
-     * attributes of our className
-     */
-    private int busNo;
+    /* attributes of our className*/
     private int id = 1;
-    private String nameOfPassenger;
+    private int busNo;
+    private int seatNo;
+    private double fareRate;
+    private double distance;
+    private String nameOfPassenger; // sample
     private String status;
     private String origin;
     private String destination;
-    private int numOfSeats;
-    private double fareRate;
     private String date;
-    private double distance;
 
-
-    /**
-     * Constructor of our ticket
-     */
-    ReservationTicket(int id, int busNo, String nameOfPassenger, String origin, String destination, String date, int numOfSeats, String status, double fareRate, double distance) {
+    /* Constructor of our ticket object*/
+    ReservationTicket(int id, int busNo, String nameOfPassenger, String origin, String destination, String date, int seatNo, String status, double fareRate, double distance) {
         this.id = id;
         this.busNo = busNo;
         this.nameOfPassenger = nameOfPassenger;
         this.status = status;
         this.origin = origin;
         this.destination = destination;
-        this.numOfSeats = numOfSeats;
+        this.seatNo = seatNo;
         this.date = date;
         this.fareRate = fareRate;
         this.distance = distance;
     }
 
+/* empty constructor para ma access nato ang iyahang methods if ato ning ih call*/
+    ReservationTicket() {
+    }
 
-    ReservationTicket() {}
-
-    /**
-     * Get data from user input
-     * ADD TICKET
-     */
+    /* get data from user input using our addTicket() method*/
     public void addTicket(ArrayList<Bus> buses) {
         LocalDate localDate;
 
+        /* we call our setId() method to Generate an id for our user */
         setId();
 
         for (int i = 0; i < 7; i++) {
@@ -63,48 +58,55 @@ public class ReservationTicket {
                 this.busNo = scan.nextInt();
 
                 for (Bus bus : buses) {
-                    /** if ang gi input sa user is equals sa bus number then proceed*/
-                    if (this.busNo == bus.getBusNo()) {
-                        System.out.println("\nAvailable seats: " + bus.getCapacity().toString());
-                        i = 2;
 
+                    /* if ang gi input sa user is equals sa bus number then proceed*/
+                    if (this.busNo == bus.getBusNo()) {
+                        if (bus.getCapacity().size() == 0) {
+                            isError = true;
+                        } else {
+                            System.out.println("\nAvailable seats: " + bus.getCapacity().toString());
+                            isError = false;
+                            i = 2;
+                        }
                     } else {
                         i--;
                     }
+                }
 
-                    if (bus.getCapacity().size() == 0) {
-                        System.out.println("Bus is full! try other bus or try again next time");
-                        i = 7;
-                    }
+                if (isError) {
+                    System.out.println("Bus is full! try other bus or try again next time");
+                    isError = false;
+                    break;
                 }
             }
             if (i == 2) {
 
-                /** Input seat number*/
+                /* Input seat number*/
                 System.out.print("Enter Seat: ");
-                numOfSeats = scan.nextInt();
+                seatNo = scan.nextInt();
                 scan.nextLine();
 
-                /** Loop our bus arraylist to get the elements of bus capacity*/
+                /* we Loop our bus arraylist to get the specific element / object */
                 for (Bus b : buses) {
 
-                    /** Check if inputted bus number is available in buses*/
+                    /* Check if inputted bus number kung mo match sa among in buse object */
                     if (b.getBusNo() == this.busNo) {
-                        /** if bus seat number is equal to the inputted seat number then remove
+
+                        /* if bus seat number is equal to the inputted seat number we then remove
                          *  the element in our arraylist seat number
                          * */
-                        if (b.getCapacity().contains(this.numOfSeats)) {
+                        if (b.getCapacity().contains(this.seatNo)) {
 
-                            /** the remove() predefined method is to remove the specific element in
+                            /* the remove() predefined method is to remove the specific element in
                              *  our arraylist.
                              * */
-                            b.getCapacity().remove((Integer) this.numOfSeats);
+                            b.getCapacity().remove((Integer) this.seatNo);
                             i += 2;
                         } else {
                             System.out.println("Seat is occupied, try another one");
 
-                            /** decrement our i if the inputted seat number is not available in our arraylist
-                             *  so that it will go back to ask a seat number.
+                            /* decrement our i if the inputted seat number is not available in our arraylist
+                             *  so that it will go back to ask again a seat number.
                              * */
                             i--;
                         }
@@ -114,29 +116,23 @@ public class ReservationTicket {
 
             if (i == 4) {
 
-                /** Input name of passenger*/
+                /* Input name of passenger*/
                 System.out.print("Name: ");
                 nameOfPassenger = scan.nextLine();
 
-                /** Input status of passenger*/
+                /* Input status of passenger*/
                 System.out.println("Status: [regular, pwd, senior, student]");
                 status = scan.next();
 
-                /** convert to lower case so that if the user will input some capital letters
-                 * it will be converted to lower case and with that, we can check easily in future
-                 * */
-                status.toLowerCase();
-
-                /** Set date*/
+                /* Set date*/
                 System.out.print("Date: dd-mm-yyyy: ");
                 String inputDate = scan.next();
 
-                /** format date using date formatter*/
+                /*format date using date formatter*/
                 DateTimeFormatter formatDate = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
                 localDate = LocalDate.parse(inputDate, formatDate);
                 this.date = localDate.toString();
-
 
                 System.out.print("Origin: ");
                 this.origin = scan.next();
@@ -145,27 +141,28 @@ public class ReservationTicket {
                 System.out.print("Distance from Origin to Destination: ");
                 this.distance = scan.nextDouble();
 
-                /** call our setFareRate method to update our fare Rate */
+                /* call our setFareRate method to update our fare Rate */
                 setFareRate();
 
-                /** Create our object and add it in our array list so that we can access it in future*/
-                reservationTickets.add(new ReservationTicket(id, busNo, nameOfPassenger, origin, destination, date, numOfSeats, status, fareRate, distance));
-                System.out.println("\n\nTicket added...");
+                /* Create our object and add it in our array list so that we can access it later*/
+                reservationTickets.add(new ReservationTicket(id, busNo, nameOfPassenger, origin, destination, date, seatNo, status, fareRate, distance));
+
+                /* set our globe variable message to "ticket added" since we are adding a ticket*/
+                message = "TICKET ADDED!";
+                displaySingleTicket();
                 break;
             }
         }
     }
 
-
+    /* Setter of our passenger name*/   //michael
     public void setNameOfPassenger(String nameOfPassenger) {
+        // sample                   //michael
         this.nameOfPassenger = nameOfPassenger;
     }
 
-    /**
-     * The setter or our id
-     */
+    /* The setter or our id */
     void setId() {
-
         for (ReservationTicket t : reservationTickets) {
             /** ticket added; id  = 1 */
             if (this.id == t.id) {
@@ -174,17 +171,16 @@ public class ReservationTicket {
         }
     }
 
-    /**
-     * Set fare rate base on inputted distance
-     */
+    /* Set fare rate base on inputted distance */
     public void setFareRate() {
         double minimumDistance = 5;
-        final double succeedingPerKilometerForNotReg = 1.48;
-        final double succeedingPerKilometerForReg = 1.85;
         final double minimumFareRateForReg = 11;
         final double minimumFareRateForNotReg = 8.75;
 
-        /** If passenger is  regular */
+        final double succeedingPerKilometerForNotReg = 1.48;
+        final double succeedingPerKilometerForReg = 1.85;
+
+        /* If passenger is  regular */
         if (this.status.equals("regular")) {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForReg;
@@ -192,8 +188,8 @@ public class ReservationTicket {
                 this.fareRate = ((this.distance - minimumDistance) * succeedingPerKilometerForReg) + minimumFareRateForReg;
             }
 
-            /** If passenger is not regular */
-        } else if (this.status.equals("pwd") || this.status.equals("student") || this.status.equals("senior citizen")) {
+            /* If passenger is not regular */
+        } else if (this.status.equals("pwd") || this.status.equals("student") || this.status.equals("senior")) {
             if (this.distance <= 5) {
                 this.fareRate = minimumFareRateForNotReg;
             } else {
@@ -202,32 +198,55 @@ public class ReservationTicket {
         }
     }
 
+    /* Search ticket method*/
+    public void searchTicket() {
 
-    /**
-     * Update ticket
-     */
+        System.out.print("Your current id: ");
+        id = scan.nextInt();
+        scan.nextLine();
+        System.out.print("Your current name: ");
+        nameOfPassenger = scan.nextLine();
+        System.out.print("Bus Number: ");
+        busNo = scan.nextInt();
+        scan.nextLine();
+
+        /* Check the size/length of our arraylist reservationTickets*/
+        if (reservationTickets.size() != 0) {
+
+            message = "YOUR TICKET";
+            displaySingleTicket();
+        } else {
+            isError = true;
+        }
+
+        if (isError) {
+            System.out.println("Can't find ticket! try again...\n");
+        }
+    }
+
+
+    /*  Update ticket method */
     public void updateTicket() {
 
-        /** Call out searchTicket method to check if there's data */
+        /* Call our searchTicket() method to check/verify if sakto ba ang iyang data nga updaton */
         searchTicket();
 
         if (!isError) {
             System.out.print("Enter your new Name: ");
             String passengerNameToReplace = scan.nextLine();
-            for (ReservationTicket reserves : reservationTickets) {
-                if (id == reserves.id && Objects.equals(nameOfPassenger, reserves.nameOfPassenger) && busNo == reserves.busNo) {
-                    /** update passenger name*/
 
-                    System.out.println(reserves.nameOfPassenger);
-                    reserves.setNameOfPassenger(passengerNameToReplace);
+            for (ReservationTicket ticket : reservationTickets) {
+                if (this.id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
 
-                    System.out.println("\n\t\tTicket updated!");
-                    System.out.println("Name: " + reserves.nameOfPassenger);
-                    System.out.println("Status: " + reserves.status);
-                    System.out.println("Origin: " + reserves.origin);
-                    System.out.println("Destination: " + reserves.destination);
-                    System.out.println("Date: " + reserves.date);
-                    System.out.println("Fare rate: " + reserves.fareRate + " \n");
+                    /** update passenger name using our setter method which is setNameOfPassenger() */
+                    ticket.setNameOfPassenger(passengerNameToReplace);
+                    nameOfPassenger = passengerNameToReplace;
+
+                    /* Set our global variable ticket to "ticket updated" since we're updating a ticket*/
+                    message = "TICKET UPDATED!";
+
+                    /* Call our displaySingleTicket() method to print the updated information of the user*/
+                    displaySingleTicket();
                     break;
                 }
             }
@@ -235,68 +254,49 @@ public class ReservationTicket {
 
     }
 
-    /**
-     * Search ticket
-     */
-    public void searchTicket() {
 
-                System.out.print("Your current id: ");
-                id = scan.nextInt();
-                scan.nextLine();
-                System.out.print("Your current name: ");
-                nameOfPassenger = scan.nextLine();
-                System.out.print("Bus Number: ");
-                busNo = scan.nextInt();
-                scan.nextLine();
+    /* display ticket */
+    public void displaySingleTicket() {
 
-                /** Check the size/length of our arraylist reservationTickets*/
-                if (reservationTickets.size() != 0) {
+        /* Loop our reservationTicket so that we get access to its elements*/
+        for (ReservationTicket ticket : reservationTickets) {
 
-                    /** Loop our reservationTicket so that we get access to its elements*/
-                    for (ReservationTicket reserves : reservationTickets) {
-                        /** if ticket found then display*/
-                        if (id == reserves.id && Objects.equals(nameOfPassenger, reserves.nameOfPassenger) && busNo == reserves.busNo) {
-                            System.out.println("\n\t\tFound Ticket!");
-                            System.out.println("Name: " + reserves.nameOfPassenger);
-                            System.out.println("Status: " + reserves.status);
-                            System.out.println("Origin: " + reserves.origin);
-                            System.out.println("Destination: " + reserves.destination);
-                            System.out.println("Distance: " + reserves.distance);
-                            System.out.println("Date : " + reserves.date);
-                            System.out.println("Fare rate: " + reserves.fareRate + " \n");
-                            isError = false;
-                            break;
-                        } else {
-                            isError = true;
-                        }
-
-                    }
-                }
-
-                if (isError) {
-                    System.out.println("Can't find ticket! try again...\n");
-                }
+            /* check to see if the user's information matches the inserted item in our arraylist.t*/
+            if (id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
+                System.out.println("\n\t" + message + "\n");
+                System.out.println("Id: " + ticket.id);
+                System.out.println("Name: " + ticket.nameOfPassenger);
+                System.out.println("Bus No: " + ticket.busNo);
+                System.out.println("Seat No: " + ticket.seatNo);
+                System.out.println("Status: " + ticket.status);
+                System.out.println("Origin: " + ticket.origin);
+                System.out.println("Destination: " + ticket.destination);
+                System.out.println("Distance: " + ticket.distance);
+                System.out.println("Date : " + ticket.date);
+                System.out.println("Fare rate: " + Math.round(ticket.fareRate) + " \n");
+                isError = false;
+                break;
+            } else {
+                isError = true;
+            }
+        }
     }
 
-    /**
-     * Display all  tickets
-     */
+    /* Display tickets*/
     public void displayReservationTickets() {
-
         if (reservationTickets.size() == 0) {
             System.out.println("\n\nSorry no Record Yet!\n");
         } else {
 //            the "-" symbol means align String to left
-            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");
-            System.out.format("|%-5s|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10s|\n", "Id", "Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
-            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");
+//            number[s] or "5s" means numbers of space nga ih occupy
+            System.out.format("+%-5s+%-9s+%-9s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-11s+\n", "-----", "---------","---------", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "-----------");
+            System.out.format("| %-4s| %-8s| %-8s| %-19s| %-14s| %-14s| %-9s| %-9s| %-12s| %-10s|\n", "Id", "Bus No", "Seat No", "Name", "Origin", "Destination", "Distance", "Status", "Date", "Fare Rate");
+            System.out.format("+%-5s+%-9s+%-9s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-11s+\n", "-----", "---------","---------", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "-----------");
             for (ReservationTicket t : reservationTickets) {
-                System.out.format("|%-5d|%-20s|%-15s|%-15s|%-10s|%-10s|%-13s|%-10.2f|\n", t.id, t.nameOfPassenger, t.origin, t.destination, t.distance, t.status, t.date, t.fareRate);
+                System.out.format("| %-4s| %-8s| %-8s| %-19s| %-14s| %-14s| %-9s| %-9s| %-12s| %-10d|\n", t.id, t.busNo, t.seatNo, t.nameOfPassenger, t.origin, t.destination, t.distance + "km", t.status, t.date, Math.round(t.fareRate));
             }
-            System.out.format("+%-5s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-10s+\n", "-----", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "----------");
+            System.out.format("+%-5s+%-9s+%-9s+%-20s+%-15s+%-15s+%-10s+%-10s+%-13s+%-11s+\n", "-----", "---------","---------", "--------------------", "---------------", "---------------", "----------", "----------", "-------------", "-----------");
         }
     }
-
-
 }
 
