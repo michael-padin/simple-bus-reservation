@@ -23,7 +23,7 @@ public class Main {
         }
 
         /*
-         * @csbt = cebu south bus terminal
+         * csbt = cebu south bus terminal
          * create our object "Bus" and then add it our arraylist
          */
         buses.add(new Bus(101, "Ceres01", "csbt", "samboan", capacity));
