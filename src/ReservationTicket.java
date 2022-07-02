@@ -240,7 +240,7 @@ public class ReservationTicket {
             String passengerNameToReplace = scan.nextLine();
 
             for (ReservationTicket ticket : reservationTickets) {
-                if (this.id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
+                if (id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
 
                     /* update passenger name using our setter method which is setNameOfPassenger() */
                     ticket.setNameOfPassenger(passengerNameToReplace);

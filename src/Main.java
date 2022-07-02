@@ -43,7 +43,7 @@ public class Main {
             choice = scan.nextInt();
 
             if (choice == 1) {
-                /* display our bus info*/
+                /* display our bus info*/   
                 new Bus().displayBus(buses);
 
                 /* add ticket */
