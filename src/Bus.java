@@ -15,8 +15,7 @@ public class Bus {
         this.capacity = capacity;
     }
 
-    Bus() {
-    }
+    Bus() {}
 
     public void displayBus(ArrayList<Bus> buses) {
 
