@@ -34,6 +34,7 @@ public class Main {
         ReservationTicket ticket = new ReservationTicket();
 
         while (true) {
+
 //            display choices
             System.out.println("\n\n\t\t\t  BUS RESERVATION SYSTEM\n");
             System.out.println("[1]Add \t\t\t\t[2]Search \t\t[3]Update\n[4]Display all \t\t[5]exit\n\n");
@@ -56,7 +57,7 @@ public class Main {
 
             } else if (choice == 3) {
                 /* update ticket */
-                ticket.updateTicket();
+                ticket.updateTicket(buses);
 
             } else if (choice == 4) {
                 /* display all tickets*/

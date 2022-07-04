@@ -1,3 +1,4 @@
+import java.awt.image.AreaAveragingScaleFilter;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -161,10 +162,12 @@ public class ReservationTicket {
 
     /* Setter of our passenger name*/
     public void setNameOfPassenger(String nameOfPassenger) {
-        // sample                   //michael
         this.nameOfPassenger = nameOfPassenger;
     }
 
+    public void setSeatNo(int  seatNo) {
+        this.seatNo = seatNo;
+    }
     /* The setter or our id */
     void setId() {
         for (ReservationTicket t : reservationTickets) {
@@ -230,7 +233,7 @@ public class ReservationTicket {
 
 
     /*  Update ticket method */
-    public void updateTicket() {
+    public void updateTicket(ArrayList<Bus> buses) {
 
         /* Call our searchTicket() method to check/verify if sakto ba ang iyang data nga updaton */
         searchTicket();
@@ -238,13 +241,29 @@ public class ReservationTicket {
         if (!isError) {
             System.out.print("Enter your new Name: ");
             String passengerNameToReplace = scan.nextLine();
+            System.out.println("Enter new bus No. ");
+            int seatNoToReplace = scan.nextInt();
+            scan.nextLine();
 
             for (ReservationTicket ticket : reservationTickets) {
                 if (id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
 
+                    for (Bus bus : buses ) {
+                        if (bus.getCapacity().contains(seatNoToReplace)) {
+                            bus.getCapacity().remove((Integer) seatNoToReplace);
+                        } else {
+                            System.out.println("Seat is occupied");
+                        }
+                    }
+
                     /* update passenger name using our setter method which is setNameOfPassenger() */
+                    ticket.setSeatNo(seatNoToReplace);
                     ticket.setNameOfPassenger(passengerNameToReplace);
-                    nameOfPassenger = passengerNameToReplace;
+
+
+
+
+                    this.seatNo = seatNoToReplace;
                     this.nameOfPassenger = passengerNameToReplace;
 
                     /* Set our global variable ticket to "ticket updated" since we're updating a ticket*/
