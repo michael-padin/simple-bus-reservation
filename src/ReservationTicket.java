@@ -120,7 +120,6 @@ public class ReservationTicket {
             }
 
             if (i == 4) {
-
                 /* Input name of passenger*/
                 System.out.print("Name: ");
                 nameOfPassenger = scan.nextLine();
