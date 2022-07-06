@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Bus {
     private int busNo;
@@ -32,11 +33,15 @@ public class Bus {
 
     /* Getter of our bus number */
     public int getBusNo() {
+
         return busNo;
     }
 
     /* Getter of our bus capacity */
     public ArrayList<Integer> getCapacity() {
+
+        /* sort arraylist in ascending order*/
+        Collections.sort(capacity);
         return capacity;
     }
 }

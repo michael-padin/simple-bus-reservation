@@ -164,9 +164,10 @@ public class ReservationTicket {
         this.nameOfPassenger = nameOfPassenger;
     }
 
-    public void setSeatNo(int  seatNo) {
+    public void setSeatNo(int seatNo) {
         this.seatNo = seatNo;
     }
+
     /* The setter or our id */
     void setId() {
         for (ReservationTicket t : reservationTickets) {
@@ -240,26 +241,31 @@ public class ReservationTicket {
         if (!isError) {
             System.out.print("Enter your new Name: ");
             String passengerNameToReplace = scan.nextLine();
-            System.out.println("Enter new bus No. ");
+            System.out.print("Enter new seat No. ");
             int seatNoToReplace = scan.nextInt();
             scan.nextLine();
 
             for (ReservationTicket ticket : reservationTickets) {
                 if (id == ticket.id && Objects.equals(nameOfPassenger, ticket.nameOfPassenger) && busNo == ticket.busNo) {
 
-                    for (Bus bus : buses ) {
-                        if (bus.getCapacity().contains(seatNoToReplace)) {
-                            bus.getCapacity().remove((Integer) seatNoToReplace);
-                        } else {
-                            System.out.println("Seat is occupied");
+                    for (Bus bus : buses) {
+                        if (bus.getBusNo() == ticket.busNo) {
+                            if (bus.getCapacity().contains(seatNoToReplace)) {
+                                /** add the previous seat number from the arraylist*/
+                                bus.getCapacity().add(ticket.seatNo);
+
+                                /** remove the new seat number from the arraylist */
+                                bus.getCapacity().remove((Integer) seatNoToReplace);
+                            } else {
+                                System.out.println("Seat is occupied try again...");
+                                return;
+                            }
                         }
                     }
 
                     /* update passenger name using our setter method which is setNameOfPassenger() */
                     ticket.setSeatNo(seatNoToReplace);
                     ticket.setNameOfPassenger(passengerNameToReplace);
-
-
 
 
                     this.seatNo = seatNoToReplace;
