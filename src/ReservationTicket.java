@@ -263,6 +263,7 @@ public class ReservationTicket {
                         }
                     }
 
+
                     /* update passenger name using our setter method which is setNameOfPassenger() */
                     ticket.setSeatNo(seatNoToReplace);
                     ticket.setNameOfPassenger(passengerNameToReplace);
